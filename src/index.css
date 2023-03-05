@@ -15,18 +15,18 @@ body::-webkit-scrollbar-thumb {
 .nav-light{
     @apply w-full px-2 py-4 bg-white fixed flex justify-between items-center text-black  shadow-md md:px-7
 }
-.home-light{
+.con-light{
     @apply mt-16 py-9 flex flex-col items-center bg-gray-100 md:py-14 md:px-12
 }
 
-.home-dark{
+.con-dark{
     @apply mt-16 py-9 flex flex-col text-white items-center bg-[#100f0f] md:py-14 md:px-12
 }
 .input-span-light{
     @apply flex items-center py-1 px-4 space-x-4 bg-white shadow-md rounded-lg md:w-[400px]
 } 
 .input-span-dark{
-    @apply flex items-center py-1 px-4 space-x-4 bg-[#494848] rounded-lg md:w-[400px]
+    @apply flex items-center py-1 px-4 space-x-4 bg-[#494848] shadow-md shadow-[#b9dadf68] rounded-lg md:w-[400px]
 } 
 .input-light{
     @apply w-[95%] h-11 outline-none text-black text-sm placeholder:text-gray-300 bg-transparent

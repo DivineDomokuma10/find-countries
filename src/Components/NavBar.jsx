@@ -11,7 +11,7 @@ const NavBar = ({theme,toggleTheme}) => {
             onClick={()=> toggleTheme()}
             >
                {theme === 'Light' ? <FaRegMoon className={`text-xl`}/> : <FaMoon className={`text-xl`}/>}
-                <p className='hidden md:block'>{theme} Theme</p>
+                <p className='hidden md:block'>{theme === 'Light' ? 'Dark' : 'Light'} Theme</p>
             </span>
         </nav>
     )
