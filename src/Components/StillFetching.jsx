@@ -2,8 +2,8 @@ import React from 'react'
 
 const StillFetching = () => {
   return (
-    <div className='w-full h-full absolute top-0 left-0 bg-white flex justify-center items-center'>
-        <h1 className='font-2xl text-white animate-pulse'>Loading Countries ...</h1>
+    <div className='w-full h-[90%] absolute top-20 left-0 bg-gray-300 flex justify-center items-center'>
+        <h1 className='text-4xl text-black font-extrabold animate-bounce'>Loading Countries ...</h1>
     </div>
   )
 }

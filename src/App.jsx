@@ -21,15 +21,21 @@ const App = () => {
       const resp = await req.json();
 
       setTimeout(() => {
-        if (req.ok === true) {
+        if (req.ok === true && countryData.length === 0) {
           setCountryData([...resp]);
           setFetch(true)
+          console.log(req);
+        }
+        else if (req.ok === true && countryData.length > 0) {
+          setCountryData([]);
+          setFetch(true)
+          setCountryData([...resp]);
           console.log(req);
         }
         else{
           setFetch(false)
         }
-      }, 3000);
+      }, 1000);
 
     }
     return apiCall

@@ -21,7 +21,7 @@ const Country = ({theme,country}) => {
           <FaArrowLeft/>
           <p>Back</p> 
         </Link>
-        <img src={country.flags.png} alt="" className='w-[600px]'/>
+        <img src={country.flags.png} alt="" className='min-w-[350px] md:w-[600px] '/>
       </div>
       <div className='w-full mt-20 px-6 flex flex-col space-y-8 md:mt-0 md:ml-14'>
         <div className='flex flex-col space-y-10 md:flex-row md:space-y-0 space-x-16 md:items-center'>
