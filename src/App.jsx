@@ -2,7 +2,7 @@ import NavBar from './Components/NavBar'
 import { Route,Routes } from 'react-router-dom'
 import Country from './Components/Country'
 import Home from './Components/Home'
-import { useState, useEffect } from 'react'
+import { useState, useLayoutEffect, useEffect } from 'react'
 
 
 
@@ -13,37 +13,31 @@ const App = () => {
   const [currCountry, setCurrCountry] = useState({});
   const [countryData, setCountryData] = useState([]);
   const [theme, setTheme] = useState('Light')
-  const [completeFetch,setFetch] = useState(false);
+  const [completeFetch,setFetch] = useState(true);
   
-  useEffect(() => {
+  useLayoutEffect(() => {
     const apiCall = async () =>{
       const req = await fetch(url);
       const resp = await req.json();
+      setCountryData([...resp])
 
-      setTimeout(() => {
-        if (req.ok === true && countryData.length === 0) {
-          setCountryData([...resp]);
-          setFetch(true)
-          console.log(req);
-        }
-        else if (req.ok === true && countryData.length > 0) {
-          setCountryData([]);
-          setFetch(true)
-          setCountryData([...resp]);
-          console.log(req);
-        }
-        else{
-          setFetch(false)
-        }
-      }, 1000);
-
+      if (req.status === 200) {
+        setFetch(true)
+      }
+      else{
+        setFetch(false)
+      }
+      console.log('useLayout has been called')
     }
     return apiCall
-  }, [url])
+  }, [])
+
+  
+  
 
   const toggleTheme = () => theme === 'Light' ? setTheme('Dark') : setTheme('Light');
 
-  const filterByRegion = regionUrl => setUrl(regionUrl)
+  const filterByRegion = regionUrl =>  setUrl(regionUrl)
 
   const setCountry = counrtyObj => setCurrCountry({...counrtyObj})
 

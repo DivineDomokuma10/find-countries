@@ -40,7 +40,7 @@ const Home = ({theme,countries,filterByRegion,setCountry,fetched}) => {
       </div>
       <div className={`w-full flex flex-col items-center space-y-10 mt-48 p-5 
         md:grid md:grid-flow-row md:grid-cols-4 md:space-y-0 md:mt-32 md:grid-rows-3`}>
-          {!(fetched ) ? <StillFetching/> : countries.slice(0,12).map((country,index) => (
+          {fetched === false ? <StillFetching/> : countries.slice(0,12).map((country,index) => (
             <CountryCard key={index} theme={theme} country={country} setCountry={setCountry}/>
           ))}
       </div>
