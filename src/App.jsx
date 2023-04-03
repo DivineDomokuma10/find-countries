@@ -30,6 +30,7 @@ function App() {
       })
       .then((data) => {
         setCountries(data);
+        setHasFetch(false);
         setTimeout(() => setHasFetch(true), 2000);
       })
       .catch((err) => {
