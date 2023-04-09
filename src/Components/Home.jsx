@@ -16,7 +16,9 @@ const reducer = (state, action) => {
 };
 
 const Home = () => {
-  const { countries, firstMount, filterByRegion, upDateSelectedCountry } =
+  const [enableSearch, setEnableSearch] = useState(false);
+  const [searchKeyWord, setSearchKeyWord] = useState("");
+  const { countries, allCountries, filterByRegion, upDateSelectedCountry } =
     useContext(contents);
   const [state, dispatch] = useReducer(reducer, {
     drop: false,
@@ -51,14 +53,19 @@ const Home = () => {
     },
   ];
 
+  const handlSearch = (e) => setSearchKeyWord(e.target.value);
+
   return (
     <div className="w-full h- flex mt-[66px] bg-gray-50 overflow-auto flex-col justify-center dark:bg-gray-800">
       <div className="w-full white top-[66px] flex flex-col items-start py-5 px-4 space-y-5 bg-gray-50 md:space-y-0 justify-between md:flex-row dark:bg-gray-800  fixed">
-        <div className="w-80 p-3 flex  items-center shadow-shadowLight bg-white rounded-md space-x-3 dark:bg-transparent dark:shadow-shadowDark ">
+        <div className="w-80 p-3 flex  items-center shadow-shadow-light bg-white rounded-md space-x-3 dark:bg-transparent dark:shadow-shadow-dark ">
           <FaSearch className="text-gray-400 dark:text-white" />
           <input
             type="search"
             placeholder="Search countries by name"
+            onChange={handlSearch}
+            onFocus={() => setEnableSearch(true)}
+            // onBlur={() => setEnableSearch(false)}
             className="w-[100%] h-full text-sm placeholder:text-sm outline-none px-3 bg-transparent dark:text-white"
           />
         </div>
@@ -76,8 +83,8 @@ const Home = () => {
               {regions.map((region) => (
                 <p
                   onClick={() => {
-                    filterByRegion(region.apiLink,region.text);
-                    dispatch({ type: "activeRegionText", value: firstMount === true ? region.text : localStorage.region });
+                    filterByRegion(region.apiLink);
+                    dispatch({ type: "activeRegionText", value: region.text });
                   }}
                   key={region.id}
                   className="p-2 hover:bg-gray-100 hover:font-semibold cursor-pointer rounded dark:hover:bg-gray-500 dark:text-white"
@@ -90,15 +97,30 @@ const Home = () => {
         </div>
       </div>
       <div className="flex flex-col mt-36 space-y-10 items-center justify-center p-5 md:grid md:grid-cols-4 md:gap-7 md:space-y-0 md:p-10">
-        {countries.slice(0, 20).map((country, i) => (
-          <Link
-            key={i}
-            to="/country"
-            onClick={() => upDateSelectedCountry(country)}
-          >
-            <Card countryDetail={country} />
-          </Link>
-        ))}
+        {enableSearch === true
+          ? allCountries
+              .filter((c) =>
+                c?.name?.common.toLowerCase().includes(searchKeyWord.toLowerCase())
+              )
+              .slice(0, 20)
+              .map((country, i) => (
+                <Link
+                  key={i}
+                  to="/country"
+                  onClick={() => upDateSelectedCountry(country)}
+                >
+                  <Card countryDetail={country} />
+                </Link>
+              ))
+          : countries.slice(0, 20).map((country, i) => (
+              <Link
+                key={i}
+                to="/country"
+                onClick={() => upDateSelectedCountry(country)}
+              >
+                <Card countryDetail={country} />
+              </Link>
+            ))}
       </div>
     </div>
   );

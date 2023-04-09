@@ -5,21 +5,28 @@ import Country from "./Components/Country";
 import { Routes, Route } from "react-router-dom";
 import StillFetching from "./Components/StillFetching";
 import { useState, useEffect, useReducer } from "react";
-import axios from "axios";
 
 function App() {
   const [selectedCountry, setSelectedCountry] = useState({});
+  const [allCountries, setAllCountries] = useState({});
   const [url, setUrl] = useState(`https://restcountries.com/v3.1/all`);
   const [countries, setCountries] = useState([]);
   const [hasFetch, setHasFetch] = useState(false);
   const [theme, setTheme] = useState("light");
-  const [firstMount, setFirstMount] = useState(false);
   useEffect(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       setTheme("dark");
     }
-
-    setFirstMount(true);
+    fetch("https://restcountries.com/v3.1/all")
+      .then((resp) => {
+        return resp.json();
+      })
+      .then((data) => {
+        setAllCountries(data);
+      })
+      .catch((err) => {
+        console.error("ERROR: " + err);
+      });
   }, []);
 
   useEffect(() => {
@@ -48,11 +55,8 @@ function App() {
   }, [theme]);
 
   const mode = () => setTheme(theme === "light" ? "dark" : "light");
-  const filterByRegion = (region,text) => {
-    setUrl(() => region);
-    setFirstMount(false)
-    localStorage.setItem("region", text)
-  };
+
+  const filterByRegion = (region) => setUrl(() => region);
   const upDateSelectedCountry = (selected) =>
     setSelectedCountry(() => selected);
 
@@ -63,9 +67,9 @@ function App() {
         mode,
         theme,
         countries,
-        firstMount,
         setHasFetch,
         setCountries,
+        allCountries,
         filterByRegion,
         selectedCountry,
         upDateSelectedCountry,

@@ -6,7 +6,7 @@ const StillFetching = () => {
       <h1 className="font-extrabold text-2xl p-5 flex items-center justify-center animate-bounce md:animate-ping">
         Countries Loading...
       </h1>
-      <p className="p-2  bg-white rounded text-red-500">please refresh page....</p>
+      <p className="p-2 text-sm text-red-500">please refresh page if loading for long</p>
     </div>
   );
 };
