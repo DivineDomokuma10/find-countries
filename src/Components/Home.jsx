@@ -65,21 +65,20 @@ const Home = () => {
             placeholder="Search countries by name"
             onChange={handlSearch}
             onFocus={() => setEnableSearch(true)}
-            // onBlur={() => setEnableSearch(false)}
             className="w-[100%] h-full text-sm placeholder:text-sm outline-none px-3 bg-transparent dark:text-white"
           />
         </div>
         <div className="w-fit h-fit">
           <div
             className="w-48
-             text-sm dark:text-white flex items-center p-3 justify-between bg-white shadow-shadowLight rounded-md cursor-pointer dark:bg-transparent dark:shadow-shadowDark"
+             text-sm dark:text-white flex items-center p-3 justify-between bg-white shadow-shadow-light rounded-md cursor-pointer dark:bg-transparent dark:shadow-shadow-dark"
             onClick={() => dispatch({ type: "showDrop" })}
           >
             <p>{state.region}</p>
             {state.drop === false ? <FaArrowDown /> : <FaArrowUp />}
           </div>
           {state.drop && (
-            <div className="w-48 bg-white text-sm mt-1 shadow-shadowLight rounded-md p-3 dark:bg-transparent dark:shadow-shadowDark">
+            <div className="w-48 bg-white text-sm mt-1 shadow-shadow-light rounded-md p-3 dark:bg-transparent dark:shadow-shadow-dark">
               {regions.map((region) => (
                 <p
                   onClick={() => {
@@ -100,7 +99,9 @@ const Home = () => {
         {enableSearch === true
           ? allCountries
               .filter((c) =>
-                c?.name?.common.toLowerCase().includes(searchKeyWord.toLowerCase())
+                c?.name?.common
+                  .toLowerCase()
+                  .includes(searchKeyWord.toLowerCase())
               )
               .slice(0, 20)
               .map((country, i) => (
