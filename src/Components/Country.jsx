@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import contents from "../assets/context";
+import Map from "./Map";
 
 const Country = () => {
   const { selectedCountry } = useContext(contents);
+  const [showMap, setShowMap] = useState(false);
   const nativeName = Object.keys(selectedCountry.name.nativeName)[
     Object.keys(selectedCountry.name.nativeName).length - 1
   ];
@@ -15,6 +17,7 @@ const Country = () => {
     arr.forEach((e) => result.push(` ${obj[e]}`));
     return result.toLocaleString();
   };
+  const toggleMapVisibility = () => setShowMap((visibility) => !visibility);
   useEffect(() => console.log(selectedCountry), []);
   return (
     <div className="w-full flex flex-col p-5 space-y-10 min-h-[89.95vh] bg-gray-100 relative top-[66px] md:top-[72px] md:h-[89.4vh] md:p-12 dark:text-white dark:bg-gray-900">
@@ -29,7 +32,7 @@ const Country = () => {
         <img
           src={selectedCountry?.flags.png}
           alt=""
-          className="w-full h-64 md:w-96 md:h-80"
+          className="w-full h-64 md:w-96 md:h-80 shadow-shadow-light dark:shadow-shadow-dark"
         />
         <div className="flex flex-col space-y-10">
           <div className="flex flex-col space-y-10 md:flex-row md:space-y-0 md:space-x-24 md:items-center">
@@ -80,13 +83,14 @@ const Country = () => {
             </div>
           </div>
           <button
-            onClick=""
+            onClick={toggleMapVisibility}
             className="flex items-center justify-center py-2 px-6 space-x-5 bg-white w-full rounded-md cursor-pointer shadow-shadow-light dark:shadow-shadow-dark dark:text-white dark:bg-gray-700"
           >
             See Country on Map
           </button>
         </div>
       </div>
+      <Map mapVisibility={showMap} setVisibility={toggleMapVisibility} data={selectedCountry}/>
     </div>
   );
 };

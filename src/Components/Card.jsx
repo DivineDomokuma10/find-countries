@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = ({ countryDetail }) => {
   return (
-    <div className="card text-sm rounded bg-white shadow-shadowLight dark:shadow-shadowDark dark:bg-gray-700 dark:text-white">
+    <div className="card text-sm rounded bg-white shadow-shadow-light dark:shadow-shadow-dark dark:bg-gray-700 dark:text-white">
       <img
         src={countryDetail.flags.png}
         className="w-72 h-56 rounded-t md:w-full"
